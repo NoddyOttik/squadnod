@@ -72,19 +72,32 @@ export default function Home() {
   function runCreate(playerName) {
     setLoading(true);
     const socket = getSocket();
-
-    socket.emit('room:create', { playerName }, ({ roomId }) => {
+  
+    socket.emit('room:create', { playerName }, (createRes) => {
+      if (!createRes?.roomId) {
+        setLoading(false);
+        setNameError('Failed to create room');
+        return;
+      }
+  
+      const { roomId } = createRes;
+  
       socket.emit(
         'room:join',
         { roomId, playerName, memberKey: getOrCreateMemberKey() },
         (res) => {
-          if (res.error) {
+          if (res?.error) {
             setLoading(false);
             setNameError(res.message ?? 'Something went wrong');
             return;
           }
+  
           saveSession(playerName, roomId);
-          router.push(`/room/${roomId}`);
+  
+          // 👇 IMPORTANT: prevent race condition
+          setTimeout(() => {
+            router.push(`/room/${roomId}`);
+          }, 120);
         }
       );
     });
