@@ -18,17 +18,19 @@ export default function SignInForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
-    console.log("🚀 HANDLE SUBMIT FIRED");
-  
     const trimmed = email.trim().toLowerCase();
+    if (!trimmed) {
+      setError('Enter your email to continue');
+      return;
+    }
 
     setLoading(true);
     setError('');
 
-    await signIn('email', {
+    const res = await signIn('resend', {
       email: trimmed,
-      callbackUrl: '/auth/verify',
+      callbackUrl,
+      redirect: false,
     });
 
     if (res?.error) {
@@ -36,12 +38,14 @@ export default function SignInForm() {
       setError('Something went wrong. Try again.');
       return;
     }
+
+    window.location.href = '/auth/verify';
   }
 
   const registerHref =
     callbackUrl && callbackUrl !== '/groups'
-      ? `/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`
-      : '/auth/signin';
+      ? `/auth/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
+      : '/auth/register';
 
   return (
     <div className="w-full max-w-sm flex flex-col gap-8">
@@ -102,18 +106,19 @@ export default function SignInForm() {
         </div>
 
         <button
-  type="button"
-  onClick={() => {
-    console.log("🔥 BUTTON CLICKED");
-
-    signIn("resend", {
-      email: "onodnarb@gmail.com",
-      callbackUrl: "/auth/verify",
-    });
-  }}
->
-  Test Sign In
-</button>
+          type="submit"
+          disabled={loading}
+          className={`
+            w-full py-3.5 rounded-full text-sm font-bold tracking-wide transition-all shadow-lg shadow-slate-900/15 ${focus}
+            ${loading
+              ? 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
+              : 'bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white'
+            }
+          `}
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          {loading ? 'Sending...' : 'Send me a link'}
+        </button>
       </form>
 
       <p className="text-center text-slate-600 text-xs leading-relaxed">

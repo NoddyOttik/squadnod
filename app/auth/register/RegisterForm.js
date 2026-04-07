@@ -18,18 +18,28 @@ export default function RegisterForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
-    console.log("🚀 HANDLE SUBMIT FIRED");
-  
     const trimmed = email.trim().toLowerCase();
+    if (!trimmed) {
+      setError('Enter your email to continue');
+      return;
+    }
 
     setLoading(true);
     setError('');
 
-    await signIn('email', {
+    const res = await signIn('resend', {
       email: trimmed,
-      callbackUrl: '/auth/verify',
+      callbackUrl,
+      redirect: false,
     });
+
+    if (res?.error) {
+      setLoading(false);
+      setError('Something went wrong. Try again.');
+      return;
+    }
+
+    window.location.href = '/auth/verify';
   }
 
   const signInHref =
@@ -96,8 +106,8 @@ export default function RegisterForm() {
         </div>
 
         <button
-  type="button"
-  onClick={handleSubmit}
+          type="submit"
+          disabled={loading}
           className={`
             w-full py-3.5 rounded-full text-sm font-bold tracking-wide transition-all shadow-lg shadow-slate-900/15 ${focus}
             ${loading
