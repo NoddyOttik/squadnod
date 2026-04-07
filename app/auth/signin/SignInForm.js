@@ -106,7 +106,7 @@ export default function SignInForm() {
   onClick={() => {
     console.log("🔥 BUTTON CLICKED");
 
-    signIn("email", {
+    signIn("resend", {
       email: "onodnarb@gmail.com",
       callbackUrl: "/auth/verify",
     });
