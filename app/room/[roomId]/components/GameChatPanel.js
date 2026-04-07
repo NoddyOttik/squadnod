@@ -41,7 +41,7 @@ export default function GameChatPanel({ myName, messages, onSend }) {
       >
         Game chat
       </p>
-      <div className="flex-1 min-h-0 overflow-y-auto px-3 pb-2 flex flex-col gap-2">
+      <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2 flex flex-col gap-2">
         {messages.length === 0 && (
           <p className="text-zinc-600 text-xs text-center py-2">
             Messages here stay in this game — not shown in room chat.
@@ -60,7 +60,7 @@ export default function GameChatPanel({ myName, messages, onSend }) {
         ))}
         <div ref={bottomRef} />
       </div>
-      <form className="shrink-0 flex gap-2 px-3 pt-1 pb-3 bg-zinc-950/95 border-t border-zinc-800/80" onSubmit={handleSubmit}>
+      <form className="shrink-0 flex gap-2 px-3 pt-1 pb-0 bg-zinc-950/95 border-t border-zinc-800/80" onSubmit={handleSubmit}>
         <input
           ref={inputRef}
           name="gameMessage"

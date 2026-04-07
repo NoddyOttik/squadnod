@@ -449,7 +449,7 @@ export default function RoomPage() {
   }
 
   return (
-    <div className="relative w-full h-[100svh] max-h-[100svh] min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
+    <div className="relative w-full h-screen min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
 
       <TopBar
         roomId={roomId}
