@@ -5,7 +5,8 @@ export default function RejoinBanner({ gameName, gameEmoji, onRejoin }) {
       onClick={onRejoin}
       className="
         shrink-0 w-full flex items-center justify-between
-        px-4 py-2.5 bg-indigo-950/70 border-b border-indigo-800/50
+        pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]
+        py-2.5 bg-indigo-950/70 border-b border-indigo-800/50
         hover:bg-indigo-900/60 active:bg-indigo-900/80
         transition-colors text-left
       "

@@ -57,7 +57,7 @@ export default function GamePanel({
     >
 
       {/* ── Panel header ─────────────────────────────── */}
-      <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-zinc-800 gap-3">
+      <div className="shrink-0 flex items-center justify-between px-4 pt-[max(0.75rem,var(--safe-top))] pb-3 border-b border-zinc-800 gap-3 pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]">
 
         {/* Game identity */}
         <div className="flex items-center gap-2.5 min-w-0">

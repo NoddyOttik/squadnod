@@ -53,7 +53,7 @@ export default function TopBar({ roomId, memberCount, onGameIconClick }) {
   }
 
   return (
-    <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-violet-500/25 bg-zinc-950/10">
+    <div className="shrink-0 flex items-center justify-between px-4 pt-[max(0.75rem,var(--safe-top))] pb-3 border-b border-violet-500/25 bg-zinc-950/10 pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]">
 
       {/* Room identity + copy */}
       <div className="group flex items-center gap-2">

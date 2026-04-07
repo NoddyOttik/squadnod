@@ -136,7 +136,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-5 py-12">
+    <main className="min-h-dvh flex flex-col items-center justify-center px-5 py-12 pt-[max(2.5rem,var(--safe-top))] pb-[max(2.5rem,var(--safe-bottom))]">
       <div className="w-full max-w-md flex flex-col gap-8">
 
         <header className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">

@@ -45,7 +45,7 @@ export default function ChatView({
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 mx-3 mb-3 pt-4 bg-transparent overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0 mx-3 mb-0 pt-2 bg-transparent overflow-hidden min-h-0">
 
       {showMembers && (
         <div className="shrink-0 border-b border-white/10 bg-transparent py-2">
@@ -98,7 +98,7 @@ export default function ChatView({
         <div ref={bottomRef} />
       </div>
 
-      <div className="shrink-0 px-3 pb-3 pt-2 border-t border-white/10 bg-transparent">
+      <div className="shrink-0 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-[max(0.75rem,var(--safe-bottom))] shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
         <form className="flex gap-2" onSubmit={handleSubmit}>
           <input
             ref={messageInputRef}

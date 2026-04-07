@@ -422,7 +422,7 @@ export default function RoomPage() {
 
   if (!roomId) {
     return (
-      <main className="flex items-center justify-center min-h-screen bg-zinc-950/10 px-6">
+      <main className="flex items-center justify-center min-h-dvh bg-zinc-950/10 px-6 pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
         <p className="text-violet-200/90 text-sm text-center">
           Invalid room link.{' '}
           <button
@@ -439,7 +439,7 @@ export default function RoomPage() {
 
   if (!joined) {
     return (
-      <main className="flex items-center justify-center min-h-screen bg-zinc-950/10">
+      <main className="flex items-center justify-center min-h-dvh bg-zinc-950/10 pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
         <div className="flex flex-col items-center gap-3">
           <div className="w-5 h-5 border-2 border-violet-400 border-t-transparent rounded-full animate-spin" />
           <p className="text-violet-200/90 text-sm">Joining room...</p>
@@ -449,7 +449,7 @@ export default function RoomPage() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
+    <div className="relative w-full h-dvh max-h-dvh min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
 
       <TopBar
         roomId={roomId}
