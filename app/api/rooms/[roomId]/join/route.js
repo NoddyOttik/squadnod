@@ -1,13 +1,12 @@
 // app/api/rooms/[roomId]/join/route.js
-import { auth } from '../../../../../lib/auth';
 import pool from '../../../../../lib/db';
 import { NextResponse } from 'next/server';
 
 export async function POST(req, context) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  //const session = await auth();
+  //if (!session?.user?.id) {
+  //  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  //}
 
   const params = await context.params;
   const roomId = params.roomId;
