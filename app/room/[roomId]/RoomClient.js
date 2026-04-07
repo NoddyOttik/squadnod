@@ -72,7 +72,7 @@ export default function RoomClient({ roomId, initialName }) {
       .then((tr) => {
         if (!tr.ok) {
           router.push(
-            `/auth/register?callbackUrl=${encodeURIComponent(`/room/${roomId}`)}`
+            `/auth/signin?callbackUrl=${encodeURIComponent(`/room/${roomId}`)}`
           );
           return null;
         }

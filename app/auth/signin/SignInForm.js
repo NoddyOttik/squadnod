@@ -26,7 +26,7 @@ export default function SignInForm() {
 
     const res = await signIn('resend', {
       email: trimmed,
-      callbackUrl,
+      callbackUrl: callbackUrl,
       redirect: false,
     });
 
@@ -41,8 +41,8 @@ export default function SignInForm() {
 
   const registerHref =
     callbackUrl && callbackUrl !== '/groups'
-      ? `/auth/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
-      : '/auth/register';
+      ? `/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`
+      : '/auth/signin';
 
   return (
     <div className="w-full max-w-sm flex flex-col gap-8">

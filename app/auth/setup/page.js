@@ -18,10 +18,22 @@ export default function Setup() {
   async function handleSubmit(e) {
     e.preventDefault();
     const trimmed = name.trim();
-    if (!trimmed) { setError('Enter a display name to continue'); return; }
-    if (trimmed.length < 2) { setError('Name must be at least 2 characters'); return; }
+
+    if (!trimmed) {
+      setError('Enter a display name to continue');
+      return;
+    }
+    if (trimmed.length < 2) {
+      setError('Name must be at least 2 characters');
+      return;
+    }
+    if (trimmed.length > 20) {
+      setError('Name must be 20 characters or less');
+      return;
+    }
 
     setLoading(true);
+    setError('');
 
     const res = await fetch('/api/user/setup', {
       method: 'POST',
@@ -36,7 +48,7 @@ export default function Setup() {
     }
 
     await update({ name: trimmed });
-    router.push('/groups');
+    router.replace('/groups');
   }
 
   return (

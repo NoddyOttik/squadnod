@@ -21,7 +21,7 @@ export default function Verify() {
         <p className="text-slate-600 text-xs">
           Didn't get it? Check your spam folder, or{' '}
           <a
-            href="/auth/register"
+            href="/auth/signin"
             className="text-indigo-700 font-semibold hover:text-indigo-900 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 focus-visible:rounded-sm"
           >
             try again
