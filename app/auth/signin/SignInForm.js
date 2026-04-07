@@ -24,10 +24,9 @@ export default function SignInForm() {
     setLoading(true);
     setError('');
 
-    const res = await signIn('email', {
+    await signIn('email', {
       email: trimmed,
-      callbackUrl: callbackUrl,
-      redirect: false,
+      callbackUrl: '/auth/verify',
     });
 
     if (res?.error) {
@@ -35,8 +34,6 @@ export default function SignInForm() {
       setError('Something went wrong. Try again.');
       return;
     }
-
-    window.location.href = '/auth/verify';
   }
 
   const registerHref =
