@@ -13,6 +13,7 @@
     "@auth/pg-adapter": "^1.11.1",
     "next": "^16.2.2",
     "next-auth": "^5.0.0-beta.30",
+    "nodemailer": "^7.0.13",
     "pg": "^8.20.0",
     "preact": "^10.29.1",
     "react": "^18",
