@@ -102,19 +102,18 @@ export default function SignInForm() {
         </div>
 
         <button
-          type="submit"
-          disabled={loading}
-          className={`
-            w-full py-3.5 rounded-full text-sm font-bold tracking-wide transition-all shadow-lg shadow-slate-900/15 ${focus}
-            ${loading
-              ? 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
-              : 'bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white'
-            }
-          `}
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          {loading ? 'Sending...' : 'Send me a link'}
-        </button>
+  type="button"
+  onClick={() => {
+    console.log("🔥 BUTTON CLICKED");
+
+    signIn("email", {
+      email: "onodnarb@gmail.com",
+      callbackUrl: "/auth/verify",
+    });
+  }}
+>
+  Test Sign In
+</button>
       </form>
 
       <p className="text-center text-slate-600 text-xs leading-relaxed">
