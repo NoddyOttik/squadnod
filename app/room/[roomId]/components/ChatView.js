@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
 import MemberList from './MemberList';
 
+const focus = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f4ff]';
+
 export default function ChatView({
   roomId,
   myName,
@@ -45,10 +47,10 @@ export default function ChatView({
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 mx-3 my-0 pt-2 bg-transparent overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0 mx-3 my-2 pt-0 overflow-hidden rounded-[1.75rem] border border-white/50 bg-white/35 backdrop-blur-xl shadow-lg shadow-slate-900/5">
 
       {showMembers && (
-        <div className="shrink-0 border-b border-white/10 bg-transparent py-2">
+        <div className="shrink-0 border-b border-white/45 bg-white/30 py-2">
           <MemberList members={members} gameCards={gameCards} />
         </div>
       )}
@@ -56,13 +58,13 @@ export default function ChatView({
       <button
         type="button"
         onClick={() => setShowMembers((v) => !v)}
-        className="shrink-0 flex items-center gap-2 px-4 py-2.5 border-b border-white/10 bg-transparent hover:bg-white/[0.04] transition-colors w-full text-left"
+        className={`shrink-0 flex items-center gap-2 px-4 py-2.5 border-b border-white/40 bg-white/25 hover:bg-white/40 transition-colors w-full text-left rounded-t-[1.75rem] ${focus}`}
       >
         <div className="flex -space-x-1">
           {members.slice(0, 5).map((m, i) => (
             <div
               key={m.id}
-              className="w-5 h-5 rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-700 border border-[#0a0514] flex items-center justify-center text-white shadow-sm"
+              className="w-5 h-5 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 border-2 border-white flex items-center justify-center text-white shadow-sm"
               style={{ fontSize: 9, zIndex: 5 - i }}
             >
               {m.name[0].toUpperCase()}
@@ -70,7 +72,7 @@ export default function ChatView({
           ))}
         </div>
         <span
-          className="text-violet-200/90 text-xs"
+          className="text-slate-700 text-xs font-medium"
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {members.length} {members.length === 1 ? 'person' : 'people'} here
@@ -80,7 +82,7 @@ export default function ChatView({
 
       <div className="flex-1 min-h-0 overflow-y-auto px-4 py-3 flex flex-col gap-2.5 bg-transparent">
         {chat.length === 0 && (
-          <p className="text-violet-200/50 text-xs text-center mt-8 leading-relaxed">
+          <p className="text-slate-500 text-xs text-center mt-8 leading-relaxed">
             No messages yet. Say hello!
           </p>
         )}
@@ -98,12 +100,12 @@ export default function ChatView({
         <div ref={bottomRef} />
       </div>
 
-      <div className="shrink-0 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-0 shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
-        <form className="flex gap-2" onSubmit={handleSubmit}>
+      <div className="shrink-0 border-t border-white/45 bg-white/55 backdrop-blur-md px-3 pt-2 pb-[max(0.5rem,var(--safe-bottom))] shadow-[0_-8px_32px_rgba(15,23,42,0.08)] rounded-b-[1.75rem]">
+        <form className="flex gap-2 items-center" onSubmit={handleSubmit}>
           <input
             ref={messageInputRef}
             name="message"
-            className="flex-1 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 bg-black/35 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-violet-400 transition-all"
+            className="flex-1 rounded-full px-4 py-3 text-sm text-slate-900 placeholder:text-slate-500 bg-white/85 border border-white/70 shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-[#f5f8ff] transition-all"
             style={{ fontFamily: 'var(--font-body)' }}
             placeholder="Message..."
             value={draft}
@@ -114,7 +116,7 @@ export default function ChatView({
           <button
             type="submit"
             disabled={!draft.trim()}
-            className="disabled:opacity-30 disabled:cursor-not-allowed px-4 py-3 rounded-xl text-sm font-bold text-white transition-all active:scale-95 shrink-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 shadow-md shadow-violet-900/30"
+            className={`disabled:opacity-40 disabled:cursor-not-allowed px-5 py-3 rounded-full text-sm font-bold text-white transition-all active:scale-95 shrink-0 bg-slate-900 hover:bg-slate-800 shadow-md ${focus}`}
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Send

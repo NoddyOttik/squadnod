@@ -1,4 +1,3 @@
-// app/room/[roomId]/components/ChatMessage.js
 import InviteCard from './InviteCard';
 
 export default function ChatMessage({
@@ -32,7 +31,7 @@ export default function ChatMessage({
 
   if (message.type === 'system') {
     return (
-      <p className="text-violet-200/55 text-xs text-center italic py-0.5">
+      <p className="text-slate-500 text-xs text-center italic py-0.5">
         {message.text}
       </p>
     );
@@ -59,16 +58,16 @@ export default function ChatMessage({
       {isStartOfGroup && (
         <span
           className={`mb-1 max-w-[78%] px-0.5 text-[11px] leading-tight ${
-            isMe ? 'text-right text-violet-300/85' : 'text-left text-violet-200/75'
+            isMe ? 'text-right text-slate-600' : 'text-left text-slate-600'
           }`}
         >
-          <span className="font-semibold text-violet-100/90">{message.name}</span>
+          <span className="font-semibold text-slate-800">{message.name}</span>
           {timeLabel ? (
             <>
-              <span className="mx-1 text-violet-200/35" aria-hidden>
+              <span className="mx-1 text-slate-400" aria-hidden>
                 ·
               </span>
-              <span className="font-normal text-violet-200/50 tabular-nums">
+              <span className="font-normal text-slate-500 tabular-nums">
                 {timeLabel}
               </span>
             </>
@@ -78,8 +77,8 @@ export default function ChatMessage({
       <div className={`
         max-w-[78%] px-3.5 py-2.5 text-sm leading-snug shadow-sm
         ${isMe
-          ? 'bg-gradient-to-br from-violet-600 to-fuchsia-700 text-white rounded-2xl rounded-br-sm ring-1 ring-white/15'
-          : 'bg-black/35 text-violet-50 ring-1 ring-white/10 rounded-2xl rounded-bl-sm'
+          ? 'bg-slate-900 text-white rounded-2xl rounded-br-sm ring-1 ring-slate-900/10'
+          : 'bg-white/80 text-slate-900 ring-1 ring-white/70 rounded-2xl rounded-bl-sm'
         }
         ${isContinuation
           ? isMe

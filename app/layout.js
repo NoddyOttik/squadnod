@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${fontDisplay.variable} ${fontBody.variable}`}
     >
-      <body className="min-h-screen text-white antialiased">
+      <body className="min-h-screen text-slate-900 antialiased">
         {children}
       </body>
     </html>

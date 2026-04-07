@@ -8,6 +8,8 @@ import GameScoreboard from './GameScoreboard';
 import GameOver from './GameOver';
 import GameChatPanel from './GameChatPanel';
 
+const focus = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f8ff]';
+
 export default function GamePanel({
   isOpen,
   myName,
@@ -49,7 +51,8 @@ export default function GamePanel({
   return (
     <div
       className={`
-        absolute inset-0 z-50 bg-zinc-950
+        absolute inset-0 z-50
+        bg-gradient-to-b from-white/96 via-[#f3f6ff]/96 to-[#eef2ff]/98 backdrop-blur-xl
         flex flex-col min-h-0
         transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -57,21 +60,21 @@ export default function GamePanel({
     >
 
       {/* ── Panel header ─────────────────────────────── */}
-      <div className="shrink-0 flex items-center justify-between px-4 pt-[max(1.35rem,var(--safe-top))] pb-3 border-b border-zinc-800 gap-3 pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]">
+      <div className="shrink-0 flex items-center justify-between px-4 pt-[max(1.35rem,var(--safe-top))] pb-3 border-b border-white/50 gap-3 pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))] bg-white/40 backdrop-blur-md shadow-sm">
 
         {/* Game identity */}
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-xl shrink-0">{card?.gameEmoji ?? '🎮'}</span>
+          <span className="text-xl shrink-0" aria-hidden>{card?.gameEmoji ?? '🎮'}</span>
           <div className="min-w-0">
             <p
-              className="text-xs text-zinc-500 uppercase tracking-widest"
+              className="text-xs text-slate-600 uppercase tracking-widest font-semibold"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               {gameStatus === 'active' ? 'In Progress' :
                gameStatus === 'waiting' ? 'Lobby' : 'Game'}
             </p>
             <h2
-              className="font-extrabold text-base leading-tight truncate"
+              className="font-extrabold text-base leading-tight truncate text-slate-900"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               {card?.gameName ?? 'Loading...'}
@@ -87,13 +90,13 @@ export default function GamePanel({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setConfirm('idle')}
-                className="text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1 transition-colors"
+                className={`text-xs text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg transition-colors ${focus}`}
               >
                 Cancel
               </button>
               <button
                 onClick={handleLeaveConfirm}
-                className="text-xs font-bold text-red-400 hover:text-red-300 bg-red-950/50 px-3 py-1 rounded-lg transition-colors"
+                className={`text-xs font-bold text-red-800 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-lg transition-colors border border-red-200 ${focus}`}
               >
                 Leave
               </button>
@@ -104,13 +107,13 @@ export default function GamePanel({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setConfirm('idle')}
-                className="text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1 transition-colors"
+                className={`text-xs text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg transition-colors ${focus}`}
               >
                 Cancel
               </button>
               <button
                 onClick={handleEndConfirm}
-                className="text-xs font-bold text-red-400 hover:text-red-300 bg-red-950/50 px-3 py-1 rounded-lg transition-colors"
+                className={`text-xs font-bold text-red-800 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-lg transition-colors border border-red-200 ${focus}`}
               >
                 End Game
               </button>
@@ -124,7 +127,7 @@ export default function GamePanel({
                (gameStatus === 'waiting' || gameStatus === 'active') && (
                 <button
                   onClick={() => setConfirm('confirm-end')}
-                  className="text-xs text-zinc-500 hover:text-red-400 px-2 py-1.5 rounded-lg hover:bg-red-950/30 transition-all"
+                  className={`text-xs text-slate-600 hover:text-red-800 px-2 py-1.5 rounded-lg hover:bg-red-50 transition-all ${focus}`}
                 >
                   End
                 </button>
@@ -134,7 +137,7 @@ export default function GamePanel({
                (gameStatus === 'waiting' || gameStatus === 'active') && (
                 <button
                   onClick={() => setConfirm('confirm-leave')}
-                  className="text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1.5 rounded-lg hover:bg-zinc-800 transition-all"
+                  className={`text-xs text-slate-600 hover:text-slate-900 px-2 py-1.5 rounded-lg hover:bg-white/80 transition-all ${focus}`}
                 >
                   Leave
                 </button>
@@ -145,7 +148,7 @@ export default function GamePanel({
           {/* ✕ always just closes the panel */}
           <button
             onClick={() => { setConfirm('idle'); onClose(); }}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors text-sm"
+            className={`w-8 h-8 flex items-center justify-center rounded-full bg-slate-900 text-white hover:bg-slate-800 transition-colors text-sm shadow-md ${focus}`}
             aria-label="Close panel"
           >
             ✕
@@ -191,8 +194,8 @@ export default function GamePanel({
           {gameStatus === 'active' && !question && !gameOver && (
             <div className="flex-1 flex items-center justify-center">
               <div className="flex flex-col items-center gap-3 text-center">
-                <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-zinc-500 text-sm">
+                <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" aria-hidden />
+                <p className="text-slate-600 text-sm font-medium">
                   {isSpectator ? 'Waiting for next question...' : 'Get ready...'}
                 </p>
               </div>

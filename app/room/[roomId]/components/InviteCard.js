@@ -9,6 +9,9 @@ function nameMatches(a, b) {
   );
 }
 
+const btnFocus =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f8ff]';
+
 export default function InviteCard({ card, myName, onJoin, onSpectate }) {
   const participants = card.participants ?? [];
   const spectators = card.spectators ?? [];
@@ -25,11 +28,11 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
   // ── Finished / Ended ─────────────────────────────────
   if (card.status === 'finished' || card.status === 'ended') {
     return (
-      <div className="w-full shrink-0 rounded-2xl border border-white/10 bg-zinc-950 overflow-hidden my-1 ring-1 ring-white/10 shadow-lg shadow-black/40">
-        <div className="px-4 pt-3 pb-2 border-b border-white/10 flex items-center gap-2 bg-black/15">
-          <span>{card.status === 'finished' ? '🏆' : '🛑'}</span>
+      <div className="w-full shrink-0 rounded-2xl border border-white/55 bg-white/55 backdrop-blur-md overflow-hidden my-1 shadow-md shadow-slate-900/10">
+        <div className="px-4 pt-3 pb-2 border-b border-white/45 flex items-center gap-2 bg-white/40">
+          <span aria-hidden>{card.status === 'finished' ? '🏆' : '🛑'}</span>
           <p
-            className="text-xs font-bold uppercase tracking-widest text-violet-200/85"
+            className="text-xs font-bold uppercase tracking-widest text-slate-800"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {card.gameEmoji} {card.gameName} —{' '}
@@ -43,18 +46,18 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
                 <div className="flex items-center gap-2">
                   <span className="text-sm">{MEDALS[i] ?? `${i + 1}.`}</span>
                   <span className={`text-sm font-medium ${
-                    player.name === myName ? 'text-fuchsia-300' : 'text-violet-100/90'
+                    player.name === myName ? 'text-indigo-700' : 'text-slate-800'
                   }`}>
                     {player.name}
                   </span>
                 </div>
-                <span className="text-sm font-bold text-violet-200/70 tabular-nums">
+                <span className="text-sm font-bold text-slate-600 tabular-nums">
                   {player.score} pts
                 </span>
               </div>
             ))
           ) : (
-            <p className="text-violet-200/50 text-xs italic">No scores recorded</p>
+            <p className="text-slate-500 text-xs italic">No scores recorded</p>
           )}
         </div>
       </div>
@@ -63,12 +66,12 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
 
   // ── Waiting / Active ──────────────────────────────────
   return (
-    <div className="w-full shrink-0 rounded-2xl border border-violet-500/25 bg-zinc-950 overflow-hidden my-1 ring-1 ring-violet-500/20 shadow-lg shadow-black/40">
-      <div className="px-4 pt-3 pb-2 border-b border-white/10 flex items-center justify-between bg-violet-950/40">
+    <div className="w-full shrink-0 rounded-2xl border border-white/55 bg-white/50 backdrop-blur-md overflow-hidden my-1 shadow-md shadow-slate-900/10">
+      <div className="px-4 pt-3 pb-2 border-b border-white/45 flex items-center justify-between bg-indigo-50/80">
         <div className="flex items-center gap-2">
-          <span>{card.gameEmoji}</span>
+          <span aria-hidden>{card.gameEmoji}</span>
           <p
-            className="text-xs font-bold uppercase tracking-widest text-violet-200/85"
+            className="text-xs font-bold uppercase tracking-widest text-slate-800"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {card.gameName}
@@ -77,23 +80,23 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
         {card.status === 'active' && (
           <span className="flex items-center gap-1.5">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600" />
             </span>
-            <span className="text-xs text-green-500 font-medium">Live</span>
+            <span className="text-xs text-emerald-800 font-semibold">Live</span>
           </span>
         )}
       </div>
 
       <div className="px-4 py-3 flex flex-col gap-2">
         {card.hostName && (
-          <p className="text-[11px] text-violet-200/60">
-            Hosted by <span className="font-semibold text-violet-200/90">{card.hostName}</span>
+          <p className="text-[11px] text-slate-600">
+            Hosted by <span className="font-semibold text-slate-800">{card.hostName}</span>
           </p>
         )}
         <div className="flex items-baseline gap-2">
-          <span className="text-xs text-violet-200/55 w-16 shrink-0">Playing</span>
-          <span className="text-xs text-violet-100/90 break-words min-w-0">
+          <span className="text-xs text-slate-500 w-16 shrink-0">Playing</span>
+          <span className="text-xs text-slate-800 break-words min-w-0">
             {participants.length > 0
               ? participants.map((p) => p.name).join(', ')
               : '—'}
@@ -101,8 +104,8 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
         </div>
         {spectators.length > 0 && (
           <div className="flex items-baseline gap-2">
-            <span className="text-xs text-violet-200/55 w-16 shrink-0">Watching</span>
-            <span className="text-xs text-violet-200/75 break-words min-w-0">
+            <span className="text-xs text-slate-500 w-16 shrink-0">Watching</span>
+            <span className="text-xs text-slate-700 break-words min-w-0">
               {spectators.map((s) => s.name).join(', ')}
             </span>
           </div>
@@ -111,17 +114,17 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
 
       <div className="px-4 pb-4 pt-0">
         {myRole === 'participant' ? (
-          <p className="text-xs text-fuchsia-300/90 font-medium py-1">You're playing ✓</p>
+          <p className="text-xs text-indigo-800 font-semibold py-1">You're playing ✓</p>
         ) : myRole === 'spectator' ? (
-          <p className="text-xs text-violet-200/55 font-medium py-1">You're watching ✓</p>
+          <p className="text-xs text-slate-600 font-medium py-1">You're watching ✓</p>
         ) : locked ? (
-          <p className="text-xs text-violet-200/45 italic py-1">Game in progress</p>
+          <p className="text-xs text-slate-500 italic py-1">Game in progress</p>
         ) : (
           <div className="flex flex-wrap gap-2 w-full">
             <button
               type="button"
               onClick={() => onJoin(card.gameId)}
-              className="min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 active:scale-[0.98] text-white text-xs font-bold px-2 py-2.5 rounded-xl transition-all shadow-md shadow-violet-900/25"
+              className={`min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white text-xs font-bold px-2 py-2.5 rounded-full transition-all shadow-md ${btnFocus}`}
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Join
@@ -129,13 +132,15 @@ export default function InviteCard({ card, myName, onJoin, onSpectate }) {
             <button
               type="button"
               onClick={() => onSpectate(card.gameId)}
-              className="min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-zinc-800 ring-1 ring-white/15 hover:bg-zinc-700 active:scale-[0.98] text-violet-100 text-xs font-semibold px-2 py-2.5 rounded-xl transition-all"
+              className={`min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-white/80 border border-white/70 hover:bg-white active:scale-[0.98] text-slate-800 text-xs font-semibold px-2 py-2.5 rounded-full transition-all shadow-sm ${btnFocus}`}
             >
               Spectate
             </button>
             <button
               type="button"
-              className="min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-zinc-900/80 text-violet-300/50 text-xs font-semibold px-2 py-2.5 rounded-xl cursor-default ring-1 ring-white/10"
+              className="min-h-[44px] min-w-[5.5rem] flex-1 basis-[calc(33.333%-0.375rem)] bg-slate-100/90 text-slate-400 text-xs font-semibold px-2 py-2.5 rounded-full cursor-default border border-slate-200/80"
+              disabled
+              aria-disabled="true"
             >
               Ignore
             </button>

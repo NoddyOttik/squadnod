@@ -422,12 +422,12 @@ export default function RoomPage() {
 
   if (!roomId) {
     return (
-      <main className="flex items-center justify-center min-h-dvh bg-zinc-950/10 px-6 pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
-        <p className="text-violet-200/90 text-sm text-center">
+      <main className="flex items-center justify-center min-h-dvh px-6 pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
+        <p className="text-slate-700 text-sm text-center">
           Invalid room link.{' '}
           <button
             type="button"
-            className="text-fuchsia-300 underline underline-offset-2"
+            className="text-indigo-700 font-semibold underline underline-offset-2 hover:text-indigo-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 rounded-sm"
             onClick={() => router.push('/')}
           >
             Back to home
@@ -439,17 +439,17 @@ export default function RoomPage() {
 
   if (!joined) {
     return (
-      <main className="flex items-center justify-center min-h-dvh bg-zinc-950/10 pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
+      <main className="flex items-center justify-center min-h-dvh pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-5 h-5 border-2 border-violet-400 border-t-transparent rounded-full animate-spin" />
-          <p className="text-violet-200/90 text-sm">Joining room...</p>
+          <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" aria-hidden />
+          <p className="text-slate-700 text-sm font-medium">Joining room...</p>
         </div>
       </main>
     );
   }
 
   return (
-    <div className="relative w-full h-screen min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
+    <div className="relative w-full h-screen min-h-0 overflow-hidden bg-transparent flex flex-col max-w-lg mx-auto">
 
       <TopBar
         roomId={roomId}

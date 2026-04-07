@@ -3,6 +3,8 @@
 
 import { useState } from 'react';
 
+const focus = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f4ff]';
+
 export default function TopBar({ roomId, memberCount, onGameIconClick }) {
   const [copied, setCopied] = useState(false);
 
@@ -53,19 +55,19 @@ export default function TopBar({ roomId, memberCount, onGameIconClick }) {
   }
 
   return (
-    <div className="shrink-0 flex items-center justify-between px-4 pt-[max(1.35rem,var(--safe-top))] pb-3 border-b border-violet-500/25 bg-zinc-950/10 pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]">
+    <div className="shrink-0 flex items-center justify-between px-4 pt-[max(1.35rem,var(--safe-top))] pb-3 border-b border-white/45 bg-white/45 backdrop-blur-xl shadow-sm pl-[max(1rem,var(--safe-left))] pr-[max(1rem,var(--safe-right))]">
 
       {/* Room identity + copy */}
       <div className="group flex items-center gap-2">
         <div>
           <p
-            className="text-violet-300/90 text-xs uppercase tracking-widest"
+            className="text-slate-600 text-xs uppercase tracking-widest font-semibold"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Room
           </p>
           <h1
-            className="text-lg font-extrabold tracking-widest leading-tight text-white"
+            className="text-lg font-extrabold tracking-widest leading-tight text-slate-900"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {roomId}
@@ -76,19 +78,19 @@ export default function TopBar({ roomId, memberCount, onGameIconClick }) {
         <button
           type="button"
           onClick={handleCopy}
-          className="
+          className={`
             flex items-center gap-1 mt-3
             opacity-100 sm:opacity-0 sm:group-hover:opacity-100
-            transition-opacity duration-150 rounded-md
-            text-violet-300/90 hover:text-white
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07030f]
-          "
+            transition-opacity duration-150 rounded-lg
+            text-indigo-700 hover:text-indigo-900
+            ${focus}
+          `}
           title="Copy room code"
           aria-label="Copy room code"
         >
           {copied ? (
             <span
-              className="text-xs text-green-400 font-medium"
+              className="text-xs text-emerald-800 font-semibold"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Copied!
@@ -96,13 +98,15 @@ export default function TopBar({ roomId, memberCount, onGameIconClick }) {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14" height="14"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden
             >
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -114,14 +118,14 @@ export default function TopBar({ roomId, memberCount, onGameIconClick }) {
       {/* Right side */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-          <span className="text-violet-200/85 text-xs">{memberCount} online</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden />
+          <span className="text-slate-600 text-xs font-medium">{memberCount} online</span>
         </div>
 
         <div className="relative">
           <button
             onClick={onGameIconClick}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-violet-950/80 ring-1 ring-violet-500/30 hover:bg-violet-900/90 active:scale-95 transition-all"
+            className={`w-9 h-9 flex items-center justify-center rounded-full bg-slate-900 text-white shadow-md border border-white/50 hover:bg-slate-800 active:scale-95 transition-all ${focus}`}
             aria-label="Open games"
           >
             <span className="text-lg">🎮</span>

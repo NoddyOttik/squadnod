@@ -16,11 +16,11 @@ export default function MemberList({ members, gameCards }) {
       {members.map((member) => {
         const status = memberStatus[member.name];
         return (
-          <div key={member.id} className="flex items-center justify-between px-4 py-2">
+          <div key={member.id ?? member.name} className="flex items-center justify-between px-4 py-2">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/90 shrink-0 shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden />
               <span
-                className="text-sm text-violet-100/95"
+                className="text-sm text-slate-800 font-medium"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 {member.name}
@@ -28,8 +28,8 @@ export default function MemberList({ members, gameCards }) {
             </div>
             {status && (
               <span
-                className={`text-xs font-medium ${
-                  status.role === 'playing' ? 'text-fuchsia-300/90' : 'text-violet-200/50'
+                className={`text-xs font-semibold ${
+                  status.role === 'playing' ? 'text-indigo-700' : 'text-slate-500'
                 }`}
                 style={{ fontFamily: 'var(--font-display)' }}
               >

@@ -3,6 +3,8 @@
 
 import { useEffect, useRef } from 'react';
 
+const focus = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+
 export default function GameMenu({
   isOpen,
   onClose,
@@ -39,7 +41,7 @@ export default function GameMenu({
   if (!isOpen) return null;
 
   return (
-    <div className="absolute inset-0 z-40 bg-black/25 backdrop-blur-[2px]">
+    <div className="absolute inset-0 z-40 bg-slate-900/15 backdrop-blur-[3px]">
 
       <div
         ref={menuRef}
@@ -47,20 +49,20 @@ export default function GameMenu({
           absolute top-[56px] right-3
           w-72
           rounded-2xl overflow-hidden
-          border border-white/10 bg-white/[0.08] backdrop-blur-xl
-          shadow-2xl shadow-black/50 ring-1 ring-white/5
+          border border-white/55 bg-white/80 backdrop-blur-xl
+          shadow-2xl shadow-slate-900/15 ring-1 ring-white/40
         "
       >
         <div className="absolute -top-2 right-3 w-4 h-2 overflow-hidden" aria-hidden="true">
           <div className="
-            w-3 h-3 bg-[#0f0a18]/95 border-l border-t border-white/15
-            rotate-45 translate-y-1.5 translate-x-0.5
+            w-3 h-3 bg-white/90 border-l border-t border-white/60
+            rotate-45 translate-y-1.5 translate-x-0.5 shadow-sm
           " />
         </div>
 
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-white/10 bg-black/20">
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-white/45 bg-white/50">
           <h2
-            className="font-extrabold text-sm text-white tracking-tight"
+            className="font-extrabold text-sm text-slate-900 tracking-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Games
@@ -68,7 +70,7 @@ export default function GameMenu({
           <button
             type="button"
             onClick={onClose}
-            className="w-7 h-7 flex items-center justify-center rounded-xl bg-black/30 ring-1 ring-white/10 hover:bg-violet-950/50 text-violet-200/90 text-xs transition-colors"
+            className={`w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 border border-slate-200/80 hover:bg-slate-200/80 text-slate-700 text-xs transition-colors ${focus}`}
           >
             ✕
           </button>
@@ -80,27 +82,27 @@ export default function GameMenu({
           {/* Blocked state */}
           {isInGame ? (
             <div className="px-4 py-5 flex flex-col gap-4">
-              <p className="text-violet-200/80 text-xs leading-relaxed">
+              <p className="text-slate-600 text-xs leading-relaxed">
                 You're currently in a game. Finish or leave it before starting or joining another.
               </p>
               <button
                 type="button"
                 onClick={onRejoin}
-                className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-black/25 px-3.5 py-3 ring-1 ring-violet-500/20 hover:bg-violet-950/40 transition-colors"
+                className={`w-full flex items-center justify-between rounded-2xl border border-white/60 bg-white/60 px-3.5 py-3 shadow-sm hover:bg-white/90 transition-colors ${focus}`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">{myGameEmoji}</span>
+                  <span className="text-lg" aria-hidden>{myGameEmoji}</span>
                   <div className="text-left">
                     <p
-                      className="text-sm font-semibold text-violet-100"
+                      className="text-sm font-semibold text-slate-900"
                       style={{ fontFamily: 'var(--font-display)' }}
                     >
                       {myGameName}
                     </p>
-                    <p className="text-xs text-fuchsia-300/80 mt-0.5">Tap to rejoin</p>
+                    <p className="text-xs text-indigo-700 font-medium mt-0.5">Tap to rejoin</p>
                   </div>
                 </div>
-                <span className="text-fuchsia-300/90 text-sm">→</span>
+                <span className="text-indigo-700 text-sm font-semibold">→</span>
               </button>
             </div>
 
@@ -109,7 +111,7 @@ export default function GameMenu({
               {catalog.map((category) => (
                 <div key={category.category}>
                   <p
-                    className="text-xs font-bold uppercase tracking-widest text-violet-200/75 mb-2.5"
+                    className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2.5"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     {category.category}
@@ -142,25 +144,26 @@ function GameRow({ game, onSelect }) {
       className={`
         w-full flex items-center justify-between
         px-3.5 py-2.5 rounded-xl border transition-all text-left
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white
         ${available
-          ? 'bg-black/25 border-white/10 ring-1 ring-white/5 hover:bg-violet-950/35 hover:border-violet-400/25 hover:ring-violet-500/20 active:scale-[0.98]'
-          : 'bg-black/15 border-white/5 opacity-45 cursor-not-allowed'
+          ? 'bg-white/70 border-white/60 hover:bg-white hover:shadow-md active:scale-[0.98]'
+          : 'bg-slate-100/60 border-slate-200/50 opacity-60 cursor-not-allowed'
         }
       `}
     >
       <div className="flex items-center gap-3">
-        <span className="text-lg w-6 text-center">{game.emoji}</span>
+        <span className="text-lg w-6 text-center" aria-hidden>{game.emoji}</span>
         <span
-          className={`text-sm font-semibold ${available ? 'text-white' : 'text-zinc-500'}`}
+          className={`text-sm font-semibold ${available ? 'text-slate-900' : 'text-slate-400'}`}
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {game.name}
         </span>
       </div>
       {available ? (
-        <span className="text-violet-300/80 text-xs">Play →</span>
+        <span className="text-indigo-700 text-xs font-semibold">Play →</span>
       ) : (
-        <span className="text-zinc-500 text-xs font-medium bg-black/30 ring-1 ring-white/10 px-2 py-0.5 rounded-full">
+        <span className="text-slate-500 text-xs font-semibold bg-slate-200/80 ring-1 ring-slate-300/80 px-2 py-0.5 rounded-full">
           soon
         </span>
       )}

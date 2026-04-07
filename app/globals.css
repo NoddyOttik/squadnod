@@ -4,7 +4,11 @@
 
 /* --font-display / --font-body come from next/font on <html> (see layout.js) */
 :root {
-  --squadnod-bg: #07030f;
+  /* Pastel base + soft accents (matches fun / glass reference) */
+  --squadnod-bg: #e8f2ff;
+  --squadnod-text: #0f172a;
+  --squadnod-text-muted: #475569;
+  --squadnod-focus: #4338ca;
   /* iOS / notched devices — used with viewport-fit=cover in layout */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -20,13 +24,13 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #fafafa;
+  color: var(--squadnod-text);
   background-color: var(--squadnod-bg);
-  /* Nebula-style backdrop (no extra layout nodes — avoids stacking / overlay bugs) */
   background-image:
-    radial-gradient(ellipse 100% 65% at 50% -18%, rgba(124, 58, 237, 0.42), transparent 52%),
-    radial-gradient(ellipse 50% 45% at 88% 98%, rgba(217, 70, 239, 0.18), transparent 55%),
-    radial-gradient(ellipse 40% 35% at 12% 85%, rgba(99, 102, 241, 0.12), transparent 50%);
+    linear-gradient(145deg, #dff0ff 0%, #e8e4ff 42%, #ffe8e0 100%),
+    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(167, 139, 250, 0.22), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 90% 100%, rgba(251, 146, 60, 0.14), transparent 50%);
+  background-attachment: fixed;
 }
 
 /* Prevent iOS zoom on input focus */
@@ -132,9 +136,9 @@ input, textarea, select {
 .squadnod-anim-shimmer {
   background-image: linear-gradient(
     90deg,
-    rgba(39, 39, 42, 0.45),
-    rgba(63, 63, 70, 0.65),
-    rgba(39, 39, 42, 0.45)
+    rgba(241, 245, 249, 0.7),
+    rgba(226, 232, 240, 0.95),
+    rgba(241, 245, 249, 0.7)
   );
   background-size: 220% 220%;
   animation: squadnodShimmer 1.4s linear infinite;

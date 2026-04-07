@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-const CONFETTI_COLORS = ['#22c55e', '#f59e0b', '#a78bfa', '#f43f5e', '#38bdf8', '#f97316'];
+const CONFETTI_COLORS = ['#15803d', '#d97706', '#6d28d9', '#be123c', '#0369a1', '#c2410c'];
 const CONFETTI_PIECES = [
   { sx: '-10px', tx: '-120px', ty: '-62px', rot: '-250deg', delay: '0ms' },
   { sx: '6px', tx: '-84px', ty: '-74px', rot: '-190deg', delay: '40ms' },
@@ -14,6 +14,8 @@ const CONFETTI_PIECES = [
   { sx: '-7px', tx: '124px', ty: '-62px', rot: '270deg', delay: '55ms' },
   { sx: '3px', tx: '0px', ty: '-98px', rot: '300deg', delay: '120ms' },
 ];
+
+const focus = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f8ff]';
 
 export default function GameQuestion({
   question,
@@ -66,17 +68,17 @@ export default function GameQuestion({
       : 0;
 
   const inputRing =
-    feedback.state === 'wrong'   ? 'ring-2 ring-red-500' :
-    feedback.state === 'correct' ? 'ring-2 ring-green-500' :
-    'focus:ring-2 focus:ring-indigo-500';
+    feedback.state === 'wrong'   ? 'ring-2 ring-red-600 ring-offset-2 ring-offset-[#f5f8ff]' :
+    feedback.state === 'correct' ? 'ring-2 ring-emerald-600 ring-offset-2 ring-offset-[#f5f8ff]' :
+    'focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-[#f5f8ff]';
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 flex flex-col gap-4 squadnod-anim-fade-up">
+    <div className="bg-white/75 border border-white/60 rounded-2xl p-5 flex flex-col gap-4 squadnod-anim-fade-up shadow-lg backdrop-blur-sm">
 
       {/* Meta row */}
       <div className="flex items-center justify-between">
         <p
-          className="text-xs text-zinc-500 uppercase tracking-widest"
+          className="text-xs text-slate-600 uppercase tracking-widest font-bold"
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {question.index + 1} / {question.total}
@@ -85,8 +87,8 @@ export default function GameQuestion({
           text-xs font-bold tabular-nums px-3 py-1 rounded-full transition-colors
           ${showQuestionTimer ? 'visible' : 'invisible'}
           ${urgent
-            ? 'bg-red-900/50 text-red-400 animate-pulse'
-            : 'bg-zinc-800 text-zinc-300'
+            ? 'bg-red-100 text-red-900 border border-red-200 animate-pulse'
+            : 'bg-slate-100 text-slate-800 border border-slate-200'
           }
         `}
           style={{ fontFamily: 'var(--font-display)' }}
@@ -96,11 +98,11 @@ export default function GameQuestion({
       </div>
 
       {/* Progress bar */}
-      <div className={`h-1 rounded-full overflow-hidden -mt-2 ${showQuestionTimer ? 'bg-zinc-800 visible' : 'bg-transparent invisible'}`}>
+      <div className={`h-1 rounded-full overflow-hidden -mt-2 ${showQuestionTimer ? 'bg-slate-200 visible' : 'bg-transparent invisible'}`}>
         <div
           key={`q-progress-${question.index}`}
           className={`h-full rounded-full ${
-            urgent ? 'bg-red-500' : 'bg-indigo-500'
+            urgent ? 'bg-red-500' : 'bg-indigo-600'
           }`}
           style={{
             width: '100%',
@@ -113,7 +115,7 @@ export default function GameQuestion({
       </div>
 
       {/* Question */}
-      <p className="text-base font-semibold leading-snug text-white squadnod-anim-pop">
+      <p className="text-base font-semibold leading-snug text-slate-900 squadnod-anim-pop">
         {question.question}
       </p>
 
@@ -121,11 +123,11 @@ export default function GameQuestion({
       {feedback.state === 'correct' && (
         <div
           key={successEventId}
-          className="relative bg-green-950/50 border-[3px] border-green-800/60 rounded-xl px-4 py-3 flex flex-col gap-1 squadnod-anim-success-pop"
+          className="relative bg-emerald-50 border-[3px] border-emerald-300 rounded-2xl px-4 py-3 flex flex-col gap-1 squadnod-anim-success-pop"
         >
           {typeof nextQuestionIn === 'number' && (
             <div
-              className="absolute inset-y-0 left-0 bg-green-900/45 pointer-events-none transition-all duration-100 linear"
+              className="absolute inset-y-0 left-0 bg-emerald-200/60 pointer-events-none transition-all duration-100 linear rounded-l-2xl"
               style={{ width: `${successFillPct}%` }}
               aria-hidden="true"
             />
@@ -149,7 +151,7 @@ export default function GameQuestion({
             </div>
           )}
           <p
-            className="relative z-[1] text-green-400 text-sm font-bold"
+            className="relative z-[1] text-emerald-900 text-sm font-bold"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {feedback.winner === 'you'    ? 'You got it! ✓'              :
@@ -157,16 +159,16 @@ export default function GameQuestion({
              "Time's up"}
           </p>
           {!isSpectator && feedback.winner === 'other' && (
-            <p className="relative z-[1] text-green-300 text-xs">
+            <p className="relative z-[1] text-emerald-800 text-xs">
               You did not get this one in time.
             </p>
           )}
-          <p className="relative z-[1] text-zinc-400 text-sm">
+          <p className="relative z-[1] text-slate-700 text-sm">
             Answer:{' '}
-            <span className="text-white font-semibold">{feedback.answer}</span>
+            <span className="text-slate-900 font-semibold">{feedback.answer}</span>
           </p>
           {feedback.winner === 'you' && feedback.acceptedBy === 'fuzzy' && (
-            <p className="relative z-[1] text-green-300 text-xs">
+            <p className="relative z-[1] text-emerald-800 text-xs">
               Close spelling accepted. Use this spelling next time.
             </p>
           )}
@@ -175,7 +177,7 @@ export default function GameQuestion({
 
       {/* Spectator label */}
       {isSpectator && feedback.state !== 'correct' && (
-        <p className="text-zinc-600 text-xs italic">
+        <p className="text-slate-500 text-xs italic">
           You're watching — answers locked
         </p>
       )}
@@ -187,8 +189,8 @@ export default function GameQuestion({
             <input
               ref={inputRef}
               className={`
-                flex-1 bg-zinc-800 rounded-xl px-4 py-3 text-sm text-white
-                placeholder-zinc-600 focus:outline-none transition-all
+                flex-1 bg-white/90 border border-slate-200 rounded-full px-4 py-3 text-sm text-slate-900
+                placeholder:text-slate-500 focus:outline-none transition-all
                 ${inputRing}
               `}
               style={{ fontFamily: 'var(--font-body)' }}
@@ -205,14 +207,14 @@ export default function GameQuestion({
             <button
               type="submit"
               disabled={feedback.locked || !draft.trim()}
-              className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 px-4 py-3 rounded-xl text-sm font-bold transition-all shrink-0"
+              className={`bg-slate-900 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 px-4 py-3 rounded-full text-sm font-bold text-white transition-all shrink-0 shadow-md ${focus}`}
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Go
             </button>
           </form>
           {feedback.state === 'wrong' && (
-            <p className="text-red-400 text-xs px-1">Not quite — try again</p>
+            <p className="text-red-800 text-xs font-medium px-1">Not quite — try again</p>
           )}
         </div>
       )}
