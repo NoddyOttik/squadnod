@@ -45,7 +45,7 @@ export default function ChatView({
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 mx-3 mb-0 pt-2 bg-transparent overflow-hidden min-h-0">
+    <div className="relative flex-1 flex flex-col min-h-0 mx-3 mb-0 pt-2 bg-transparent overflow-hidden">
 
       {showMembers && (
         <div className="shrink-0 border-b border-white/10 bg-transparent py-2">
@@ -78,7 +78,7 @@ export default function ChatView({
         </span>
       </button>
 
-      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-2.5 min-h-0 bg-transparent">
+      <div className="flex-1 overflow-y-auto px-4 py-3 pb-[6.5rem] flex flex-col gap-2.5 min-h-0 bg-transparent">
         {chat.length === 0 && (
           <p className="text-violet-200/50 text-xs text-center mt-8 leading-relaxed">
             No messages yet. Say hello!
@@ -98,7 +98,7 @@ export default function ChatView({
         <div ref={bottomRef} />
       </div>
 
-      <div className="shrink-0 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-[max(0.75rem,var(--safe-bottom))] shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
+      <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-[max(0.75rem,var(--safe-bottom))] shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
         <form className="flex gap-2" onSubmit={handleSubmit}>
           <input
             ref={messageInputRef}
