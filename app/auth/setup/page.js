@@ -54,7 +54,10 @@ export default function Setup() {
             Squad
           </h1>
           <p className="text-slate-600 text-sm mt-2">
-            Your email is confirmed. Choose the name your friends will see in chat and games.
+            One last thing — what should we call you?
+          </p>
+          <p className="text-slate-500 text-xs mt-2 max-w-[280px] mx-auto leading-relaxed">
+            This is the name friends see in chat and games.
           </p>
         </div>
 
