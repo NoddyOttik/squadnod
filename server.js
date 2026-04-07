@@ -3,6 +3,18 @@ const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
 const { Server } = require('socket.io');
+const { Pool } = require('pg');
+
+let pgPool = null;
+if (process.env.DATABASE_URL) {
+  pgPool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl:
+      process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
+  });
+}
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -430,6 +442,44 @@ app.prepare().then(() => {
 
   global.io = io;
 
+  if (pgPool) {
+    io.use(async (socket, next) => {
+      try {
+        const token = socket.handshake.auth?.token;
+        if (!token) {
+          return next(new Error('Authentication required'));
+        }
+        const secret =
+          process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
+        if (!secret) {
+          return next(new Error('Server misconfigured'));
+        }
+        const { decode } = await import('@auth/core/jwt');
+        const salts = [
+          '__Secure-authjs.session-token',
+          'authjs.session-token',
+        ];
+        let payload = null;
+        for (const salt of salts) {
+          try {
+            payload = await decode({ token, secret, salt });
+            if (payload) break;
+          } catch {
+            /* try next salt */
+          }
+        }
+        if (!payload?.name) {
+          return next(new Error('Invalid or expired session'));
+        }
+        socket.data.userId = payload.sub;
+        socket.data.playerName = payload.name;
+        next();
+      } catch {
+        next(new Error('Auth error'));
+      }
+    });
+  }
+
   io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
 
@@ -447,10 +497,40 @@ app.prepare().then(() => {
       callback({ roomId });
     });
 
-    socket.on('room:join', ({ roomId, playerName, memberKey: memberKeyRaw }, callback) => {
-      const room = rooms[roomId];
+    socket.on('room:join', async ({ roomId, memberKey: memberKeyRaw, playerName: legacyPlayerName }, callback) => {
+      let room = rooms[roomId];
+      if (!room && pgPool) {
+        try {
+          const { rows } = await pgPool.query(
+            'SELECT id FROM rooms WHERE id = $1',
+            [roomId]
+          );
+          if (rows.length > 0) {
+            rooms[roomId] = {
+              id: roomId,
+              members: [],
+              chat: [],
+              games: [],
+            };
+            room = rooms[roomId];
+          }
+        } catch (e) {
+          console.error('[room:join] ensure room from DB failed', e);
+        }
+      }
       if (!room) {
         callback({ error: 'room_not_found', message: 'Room not found' });
+        return;
+      }
+
+      const playerName = pgPool
+        ? socket.data.playerName
+        : legacyPlayerName;
+      if (!playerName) {
+        callback({
+          error: 'auth_required',
+          message: 'Authentication required',
+        });
         return;
       }
 

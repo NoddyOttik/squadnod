@@ -1,6 +1,7 @@
 // app/layout.js
 import { Bricolage_Grotesque, DM_Sans } from 'next/font/google';
 import './globals.css';
+import Providers from './providers';
 
 const fontDisplay = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
       className={`${fontDisplay.variable} ${fontBody.variable}`}
     >
       <body className="min-h-screen text-slate-900 antialiased">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
