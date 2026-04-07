@@ -48,7 +48,15 @@ export default function Setup() {
     }
 
     await update({ name: trimmed });
-    router.replace('/groups');
+
+    let nextPath = '/groups';
+    if (typeof window !== 'undefined') {
+      const raw = new URLSearchParams(window.location.search).get('callbackUrl');
+      if (raw && raw.startsWith('/') && !raw.startsWith('//')) {
+        nextPath = raw;
+      }
+    }
+    router.replace(nextPath);
   }
 
   return (

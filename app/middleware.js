@@ -31,7 +31,9 @@ export default auth((req) => {
   }
 
   if (isSignedIn && !hasName && pathname.startsWith('/room/')) {
-    return NextResponse.redirect(new URL('/auth/setup', req.url));
+    const setup = new URL('/auth/setup', req.url);
+    setup.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(setup);
   }
 
   // ── Signed IN, HAS display name ───────────────────────
