@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 
+const focus =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f4ff]';
+
 export default function Groups() {
   const router              = useRouter();
   const { data: session }   = useSession();
@@ -53,40 +56,52 @@ export default function Groups() {
 
   if (loading) {
     return (
-      <main className="flex items-center justify-center min-h-screen bg-zinc-950">
-        <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <main className="flex items-center justify-center min-h-dvh bg-transparent pt-[max(1rem,var(--safe-top))] pb-[max(1rem,var(--safe-bottom))]">
+        <div className="w-8 h-8 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" aria-hidden />
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-5 py-10 max-w-sm mx-auto">
+    <main className="min-h-dvh bg-transparent px-5 py-10 pt-[max(1.25rem,var(--safe-top))] pb-[max(1.25rem,var(--safe-bottom))] max-w-lg mx-auto w-full">
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1
-          className="text-3xl font-extrabold text-white"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          Squad
-        </h1>
-        <div className="flex items-center gap-3">
-          <span className="text-zinc-500 text-sm">{session?.user?.name}</span>
+      {/* Header — glass pill bar */}
+      <div className="flex items-center justify-between gap-3 mb-8 rounded-full border border-white/55 bg-white/45 px-4 py-3 shadow-md shadow-slate-900/5 backdrop-blur-xl">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/80 text-lg shadow-sm border border-white/60">
+            🎮
+          </span>
+          <h1
+            className="text-xl font-extrabold text-slate-900 truncate"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            Squad
+          </h1>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="hidden sm:inline text-slate-600 text-xs font-medium truncate max-w-[7rem]">
+            {session?.user?.name}
+          </span>
           <button
+            type="button"
             onClick={() => signOut({ callbackUrl: '/auth/signin' })}
-            className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+            className={`text-xs font-semibold text-slate-700 hover:text-slate-900 px-2 py-1.5 rounded-full hover:bg-white/50 transition-colors ${focus}`}
           >
             Sign out
           </button>
         </div>
       </div>
 
+      <p className="text-slate-600 text-sm mb-6 -mt-2">
+        Jump back into a room or start a new one for your squad.
+      </p>
+
       {/* Rooms list */}
       <div className="flex flex-col gap-3 mb-6">
         {rooms.length === 0 ? (
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-8 text-center">
-            <p className="text-zinc-500 text-sm">No rooms yet.</p>
-            <p className="text-zinc-600 text-xs mt-1">
+          <div className="rounded-[1.75rem] border border-white/55 bg-white/40 p-8 text-center shadow-lg shadow-slate-900/5 backdrop-blur-xl">
+            <p className="text-slate-700 text-sm font-medium">No rooms yet.</p>
+            <p className="text-slate-600 text-xs mt-1">
               Create one or join with a code.
             </p>
           </div>
@@ -94,19 +109,20 @@ export default function Groups() {
           rooms.map((room) => (
             <button
               key={room.id}
+              type="button"
               onClick={() => router.push(`/room/${room.id}`)}
-              className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-2xl px-5 py-4 text-left transition-all active:scale-[0.98]"
+              className={`w-full rounded-[1.5rem] border border-white/55 bg-white/50 hover:bg-white/70 px-5 py-4 text-left transition-all active:scale-[0.99] shadow-md shadow-slate-900/5 backdrop-blur-md ${focus}`}
             >
               <p
-                className="font-bold text-white text-base"
+                className="font-bold text-slate-900 text-base"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 {room.name}
               </p>
-              <p className="text-zinc-500 text-xs mt-1">
+              <p className="text-slate-600 text-xs mt-1 font-medium">
                 {room.member_count} {room.member_count === 1 ? 'member' : 'members'}
                 {' · '}
-                {room.id}
+                <span className="tabular-nums">{room.id}</span>
               </p>
             </button>
           ))
@@ -116,8 +132,9 @@ export default function Groups() {
       {/* Actions */}
       <div className="flex flex-col gap-3">
         <button
+          type="button"
           onClick={handleCreateRoom}
-          className="w-full bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] text-white font-bold py-3.5 rounded-xl text-sm transition-all"
+          className={`w-full bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white font-bold py-3.5 rounded-full text-sm transition-all shadow-lg shadow-slate-900/20 ${focus}`}
           style={{ fontFamily: 'var(--font-display)' }}
         >
           + Create new room
@@ -125,21 +142,19 @@ export default function Groups() {
 
         {!showJoin ? (
           <button
+            type="button"
             onClick={() => setShowJoin(true)}
-            className="w-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 font-semibold py-3.5 rounded-xl text-sm transition-all"
+            className={`w-full bg-white/55 border border-white/70 hover:bg-white/75 text-slate-800 font-semibold py-3.5 rounded-full text-sm transition-all shadow-md backdrop-blur-sm ${focus}`}
           >
             Join with a code
           </button>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="rounded-[1.5rem] border border-white/55 bg-white/45 p-4 flex flex-col gap-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl">
             <input
               className={`
-                w-full bg-zinc-900 rounded-xl px-4 py-3.5 text-white
-                placeholder-zinc-600 focus:outline-none transition-all
-                ${error
-                  ? 'ring-2 ring-red-500'
-                  : 'ring-1 ring-zinc-800 focus:ring-2 focus:ring-indigo-500'
-                }
+                w-full rounded-full px-4 py-3.5 text-slate-900 placeholder:text-slate-500
+                bg-white/85 border border-white/70 shadow-inner focus:outline-none transition-all ${focus}
+                ${error ? 'ring-2 ring-red-500 ring-offset-2 ring-offset-[#f5f8ff]' : ''}
               `}
               placeholder="Room code"
               value={roomCode}
@@ -147,17 +162,19 @@ export default function Groups() {
               maxLength={10}
               autoFocus
             />
-            {error && <p className="text-red-400 text-xs px-1">{error}</p>}
+            {error && <p className="text-red-700 text-xs font-medium px-1">{error}</p>}
             <div className="flex gap-2">
               <button
+                type="button"
                 onClick={() => { setShowJoin(false); setRoomCode(''); setError(''); }}
-                className="flex-1 bg-zinc-800 text-zinc-400 font-semibold py-3 rounded-xl text-sm transition-all"
+                className={`flex-1 bg-white/70 text-slate-700 font-semibold py-3 rounded-full text-sm border border-white/60 hover:bg-white transition-all ${focus}`}
               >
                 Cancel
               </button>
               <button
+                type="button"
                 onClick={handleJoinRoom}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition-all"
+                className={`flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-full text-sm transition-all shadow-md ${focus}`}
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 Join

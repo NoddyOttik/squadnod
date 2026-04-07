@@ -41,8 +41,8 @@ input, textarea, select {
 /* Subtle scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #3f3f51; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #5a5a72; }
+::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.22); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(15, 23, 42, 0.35); }
 
 @keyframes squadnodFadeUp {
   from {
