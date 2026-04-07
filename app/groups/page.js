@@ -84,7 +84,7 @@ export default function Groups() {
           </span>
           <button
             type="button"
-            onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+            onClick={() => signOut({ callbackUrl: '/auth/register' })}
             className={`text-xs font-semibold text-slate-700 hover:text-slate-900 px-2 py-1.5 rounded-full hover:bg-white/50 transition-colors ${focus}`}
           >
             Sign out

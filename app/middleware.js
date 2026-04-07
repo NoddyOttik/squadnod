@@ -8,14 +8,14 @@ export default auth((req) => {
 
   // Protect room routes
   if (pathname.startsWith('/room/') && !isSignedIn) {
-    const signInUrl = new URL('/auth/signin', req.url);
-    signInUrl.searchParams.set('callbackUrl', req.url);
-    return NextResponse.redirect(signInUrl);
+    const registerUrl = new URL('/auth/register', req.url);
+    registerUrl.searchParams.set('callbackUrl', req.url);
+    return NextResponse.redirect(registerUrl);
   }
 
   // Protect groups screen
   if (pathname === '/groups' && !isSignedIn) {
-    return NextResponse.redirect(new URL('/auth/signin', req.url));
+    return NextResponse.redirect(new URL('/auth/register', req.url));
   }
 
   // Redirect signed-in users away from auth pages

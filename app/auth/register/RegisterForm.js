@@ -1,4 +1,4 @@
-// app/auth/signin/SignInForm.js
+// app/auth/register/RegisterForm.js
 'use client';
 
 import { useState } from 'react';
@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 const focus =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f4ff]';
 
-export default function SignInForm() {
+export default function RegisterForm() {
   const [email, setEmail]     = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
@@ -39,10 +39,10 @@ export default function SignInForm() {
     window.location.href = '/auth/verify';
   }
 
-  const registerHref =
+  const signInHref =
     callbackUrl && callbackUrl !== '/groups'
-      ? `/auth/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
-      : '/auth/register';
+      ? `/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`
+      : '/auth/signin';
 
   return (
     <div className="w-full max-w-sm flex flex-col gap-8">
@@ -55,16 +55,16 @@ export default function SignInForm() {
           className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-2"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          Welcome back
+          Join Squad
         </p>
         <h1
           className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          Sign in to Squad
+          Create your account
         </h1>
         <p className="text-slate-600 text-sm mt-2">
-          Enter the email you used when you signed up — we&apos;ll send you a magic link.
+          Enter your email — we&apos;ll send a magic link. After you confirm, you&apos;ll choose your display name.
         </p>
       </div>
 
@@ -77,7 +77,7 @@ export default function SignInForm() {
             className="text-xs font-semibold uppercase tracking-widest text-slate-700"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Your email
+            Email
           </label>
           <input
             type="email"
@@ -114,21 +114,21 @@ export default function SignInForm() {
           `}
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          {loading ? 'Sending...' : 'Send me a link'}
+          {loading ? 'Sending link…' : 'Send magic link'}
         </button>
       </form>
 
       <p className="text-center text-slate-600 text-xs leading-relaxed">
-        We&apos;ll email you a magic link — no password needed.
+        No password — we email you a secure link. It expires in 24 hours.
       </p>
 
       <p className="text-center text-slate-600 text-sm">
-        New to Squad?{' '}
+        Already have an account?{' '}
         <Link
-          href={registerHref}
+          href={signInHref}
           className="font-semibold text-indigo-700 hover:text-indigo-900 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 rounded-sm"
         >
-          Create an account
+          Sign in
         </Link>
       </p>
 

@@ -1,0 +1,27 @@
+---
+description: Squad app UI — pastel glass “fun” aesthetic (keep for all UI work)
+alwaysApply: true
+---
+
+# Squad UI (maintain moving forward)
+
+When adding or changing **UI** (pages, components, layouts, `globals.css`):
+
+## Visual language
+
+- **Background**: Let the global body gradient show (`bg-transparent` on full-page shells). Do not revert auth/groups/room shells to solid dark (`bg-zinc-950`) unless the user explicitly asks.
+- **Surfaces**: Frosted **glass** — `bg-white/40–55`, `backdrop-blur-xl` (or `md`), `border border-white/50–60`, **squircle** radii e.g. `rounded-[1.5rem]`–`rounded-[1.75rem]` for cards; `rounded-full` for primary actions and text fields.
+- **Primary actions**: Deep **navy** — `bg-slate-900` / `hover:bg-slate-800`, **white** text, soft shadow e.g. `shadow-lg shadow-slate-900/15–20`.
+- **Secondary actions**: Light glass — `bg-white/55–70`, `border-white/70`, `text-slate-800`.
+- **Typography**: Headings **`text-slate-900`**, body/secondary **`text-slate-600`**, labels **`text-slate-700`** (avoid low-contrast grey on white for small text).
+
+## Accessibility
+
+- **`focus-visible`**: Visible rings on interactive elements, e.g. `focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f4ff]` (or similar high-contrast offset on the pastel bg).
+- **Errors on light UI**: Prefer **`text-red-700`** (not `red-400`) on glass/light backgrounds.
+- **Safe areas**: Keep `min-h-dvh` and `pt-[max(...,var(--safe-top))]` / `pb-[max(...,var(--safe-bottom))]` where full-screen layouts already use them.
+
+## Scope
+
+- **Do not change** socket logic, NextAuth flows, or API behavior for styling.
+- New screens should **match** existing auth, `/groups`, and room chat styling rather than introducing a separate dark theme.

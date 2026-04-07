@@ -9,7 +9,7 @@ export default async function RoomPage(props) {
 
   const session = await auth();
   if (!session) {
-    redirect(`/auth/signin?callbackUrl=${encodeURIComponent(`/room/${roomId}`)}`);
+    redirect(`/auth/register?callbackUrl=${encodeURIComponent(`/room/${roomId}`)}`);
   }
   if (!session.user?.name) {
     redirect('/auth/setup');

@@ -13,15 +13,15 @@ export default function Verify() {
             Check your email
           </h1>
           <p className="text-slate-600 text-sm mt-3 leading-relaxed">
-            We sent a sign-in link to your email address.
-            Tap it to continue — it expires in 24 hours.
+            We sent a link to your email. Open it on this device to finish signing in.
+            If you&apos;re new, you&apos;ll set your display name next. The link expires in 24 hours.
           </p>
         </div>
 
         <p className="text-slate-600 text-xs">
           Didn't get it? Check your spam folder, or{' '}
           <a
-            href="/auth/signin"
+            href="/auth/register"
             className="text-indigo-700 font-semibold hover:text-indigo-900 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-600 focus-visible:ring-offset-2 focus-visible:rounded-sm"
           >
             try again
