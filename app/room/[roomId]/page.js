@@ -45,7 +45,6 @@ export default function RoomPage() {
   const [gameOver, setGameOver] = useState(null);
   const [successEventId, setSuccessEventId] = useState(0);
   const [gameChatMessages, setGameChatMessages] = useState([]);
-  const [viewportHeight, setViewportHeight] = useState(null);
 
   const myNameRef        = useRef('');
   const myGameIdRef      = useRef(null);
@@ -54,28 +53,6 @@ export default function RoomPage() {
   const [nextQuestionIn, setNextQuestionIn] = useState(null);
 
   useEffect(() => { myGameIdRef.current = myGameId; }, [myGameId]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const updateViewportHeight = () => {
-      const h = Math.round(window.visualViewport?.height ?? window.innerHeight);
-      if (h > 0) setViewportHeight(h);
-    };
-
-    updateViewportHeight();
-
-    const vv = window.visualViewport;
-    vv?.addEventListener('resize', updateViewportHeight);
-    window.addEventListener('resize', updateViewportHeight);
-    window.addEventListener('orientationchange', updateViewportHeight);
-
-    return () => {
-      vv?.removeEventListener('resize', updateViewportHeight);
-      window.removeEventListener('resize', updateViewportHeight);
-      window.removeEventListener('orientationchange', updateViewportHeight);
-    };
-  }, []);
 
   useEffect(() => {
     if (!roomId) return;
@@ -472,10 +449,7 @@ export default function RoomPage() {
   }
 
   return (
-    <div
-      className="relative w-full min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto"
-      style={viewportHeight ? { height: `${viewportHeight}px` } : { height: '100vh' }}
-    >
+    <div className="relative w-full h-[100svh] max-h-[100svh] min-h-0 overflow-hidden bg-zinc-950/10 flex flex-col max-w-lg mx-auto">
 
       <TopBar
         roomId={roomId}

@@ -60,7 +60,7 @@ export default function GameChatPanel({ myName, messages, onSend }) {
         ))}
         <div ref={bottomRef} />
       </div>
-      <form className="shrink-0 flex gap-2 px-3 pt-1 pb-[max(0.75rem,var(--safe-bottom))] bg-zinc-950/95 border-t border-zinc-800/80" onSubmit={handleSubmit}>
+      <form className="shrink-0 flex gap-2 px-3 pt-1 pb-3 bg-zinc-950/95 border-t border-zinc-800/80" onSubmit={handleSubmit}>
         <input
           ref={inputRef}
           name="gameMessage"

@@ -98,7 +98,7 @@ export default function ChatView({
         <div ref={bottomRef} />
       </div>
 
-      <div className="shrink-0 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-[max(0.75rem,var(--safe-bottom))] shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
+      <div className="shrink-0 border-t border-white/10 bg-zinc-950/95 backdrop-blur-md px-3 pt-2 pb-3 shadow-[0_-12px_32px_rgba(0,0,0,0.35)]">
         <form className="flex gap-2" onSubmit={handleSubmit}>
           <input
             ref={messageInputRef}
