@@ -2,6 +2,7 @@
 import { Bricolage_Grotesque, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Providers from './providers';
+import { SessionProvider } from 'next-auth/react';
 
 const fontDisplay = Bricolage_Grotesque({
   subsets: ['latin'],

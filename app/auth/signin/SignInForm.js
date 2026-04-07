@@ -18,8 +18,10 @@ export default function SignInForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+  
+    console.log("🚀 HANDLE SUBMIT FIRED");
+  
     const trimmed = email.trim().toLowerCase();
-    if (!trimmed) { setError('Enter your email to continue'); return; }
 
     setLoading(true);
     setError('');
