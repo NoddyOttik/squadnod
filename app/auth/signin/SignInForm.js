@@ -27,7 +27,7 @@ export default function SignInForm() {
     setLoading(true);
     setError('');
 
-    const res = await signIn('resend', {
+    const res = await signIn('email', {
       email: trimmed,
       callbackUrl,
       redirect: false,
