@@ -1,12 +1,13 @@
-// app/middleware.js
-import { auth } from '../lib/auth';
+// proxy.js
+
+import { auth } from './lib/auth';
 import { NextResponse } from 'next/server';
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-  const session      = req.auth;
-  const isSignedIn   = !!session?.user;
-  const hasName      = !!session?.user?.name;
+  const session = req.auth;
+  const isSignedIn = !!session?.user;
+  const hasName = !!session?.user?.name;
 
   // ── Signed OUT ────────────────────────────────────────
 
