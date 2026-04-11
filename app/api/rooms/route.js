@@ -1,4 +1,5 @@
 // app/api/rooms/route.js
+
 import { auth } from '../../../lib/auth';
 import pool from '../../../lib/db';
 import { NextResponse } from 'next/server';
@@ -7,8 +8,8 @@ function generateRoomId() {
   return Math.random().toString(36).substring(2, 8);
 }
 
-export async function GET() {
-  const session = await auth();
+export const GET = auth(async function GET(req) {
+  const session = req.auth;
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -16,29 +17,29 @@ export async function GET() {
   const { rows } = await pool.query(
     `
     SELECT
-      r.id,
-      r.name,
-      r.created_at,
-      COUNT(m2.user_id)::int AS member_count
+    r.id,
+    r.name,
+    r.created_at,
+    COUNT(m2.user_id)::int AS member_count
     FROM rooms r
     JOIN memberships m ON m.room_id = r.id AND m.user_id = $1
     LEFT JOIN memberships m2 ON m2.room_id = r.id
     GROUP BY r.id, r.name, r.created_at
     ORDER BY r.created_at DESC
-  `,
+    `,
     [session.user.id]
   );
 
   return NextResponse.json({ rooms: rows });
-}
+});
 
-export async function POST() {
-  const session = await auth();
+export const POST = auth(async function POST(req) {
+  const session = req.auth;
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const roomId   = generateRoomId();
+  const roomId = generateRoomId();
   const roomName = `${session.user.name}'s Room`;
 
   await pool.query(
@@ -52,4 +53,4 @@ export async function POST() {
   );
 
   return NextResponse.json({ roomId, roomName });
-}
+});
