@@ -4,8 +4,9 @@ import { auth } from '../../../../lib/auth';
 import pool from '../../../../lib/db';
 import { NextResponse } from 'next/server';
 
-export async function POST(req) {
-  const session = await auth();
+export const POST = auth(async function POST(req) {
+  const session = req.auth;
+
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -27,4 +28,4 @@ export async function POST(req) {
   }
 
   return NextResponse.json({ success: true });
-}
+});
