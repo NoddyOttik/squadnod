@@ -23,23 +23,12 @@ export default function SignInForm() {
       setError('Enter your email to continue');
       return;
     }
-
     setLoading(true);
     setError('');
-
-    const res = await signIn('resend', {
+    await signIn('resend', {
       email: trimmed,
       callbackUrl,
-      redirect: false,
     });
-
-    if (res?.error) {
-      setLoading(false);
-      setError('Something went wrong. Try again.');
-      return;
-    }
-
-    window.location.href = '/auth/verify';
   }
 
   const registerHref =
@@ -67,7 +56,7 @@ export default function SignInForm() {
           Sign in to Squad
         </h1>
         <p className="text-slate-600 text-sm mt-2">
-          Enter the email you used when you signed up — we&apos;ll send you a magic link.
+          Enter your email — we&apos;ll send you a magic link. New users are created automatically.
         </p>
       </div>
 
